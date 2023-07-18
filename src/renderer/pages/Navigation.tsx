@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { stopNode } from 'renderer/features/nodeSlice';
 import { useAppDispatch } from 'renderer/utils/hooks';
-import MadaraLogo from '../../../assets/madara-logo.png';
+import DeoxysLogo from '../../../assets/deoxys-logo.jpg';
 import Logs from './Logs';
 import Telemetry from './Telemetry';
 
@@ -59,7 +59,7 @@ const NavbarItemsContainer = styled.div`
 const NavbarItem = styled.div<{ active: boolean }>`
   background-color: ${(props) =>
     props.active ? 'rgba(230, 38, 0, 0.17)' : 'transparent'};
-  color: ${(props) => (props.active ? '#e62600' : '#9CA3AF')};
+  color: ${(props) => (props.active ? '#ff9f40' : '#9CA3AF')};
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   padding-left: 0.8rem;
@@ -97,8 +97,8 @@ export default function Navigtion() {
         animate={{ x: 0, transition: { type: 'tween', duration: 0.5 } }}
       >
         <NavbarHeading>
-          <NavbarHeadingLogo src={MadaraLogo} />
-          Madara
+          <NavbarHeadingLogo src={DeoxysLogo} />
+          Deoxys
         </NavbarHeading>
         <NavbarItemsContainer>
           {NAVBAR_ITEMS.map((item, index) => (

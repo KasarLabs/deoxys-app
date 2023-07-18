@@ -60,7 +60,7 @@ export default function Telemetry() {
         <InfiniteBarLoader style={{ width: '100%', borderRadius: 0 }} />
       )}
       <Iframe
-        src="https://telemetry.madara.zone/"
+        src="https://deoxys.kasar.io/"
         title="telemetry"
         style={{ width: '100%', height: '100%', opacity: loading ? 0 : 1 }}
         onLoad={handleLoad}

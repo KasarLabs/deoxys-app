@@ -10,7 +10,6 @@ import {
 } from 'framer-motion';
 import { Progress } from 'electron-dl';
 import { MadaraConfig } from 'main/madara';
-import SharinganEye from '../components/SharinganEye';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import InfiniteBarLoader from '../components/InfiniteBarLoader';
@@ -24,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import Settings from 'renderer/components/Settings';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'renderer/utils/hooks';
+import animationGif from '../../../assets/deoxys.gif';
 
 const LandingContainer = styled(motion.div)`
   background-color: black;
@@ -137,43 +137,6 @@ export default function Landing() {
       });
     }
 
-    // start the rotation of the red eye
-    redIrisAnimate(
-      redIrisScope.current,
-      { rotate: 360 },
-      { duration: 1, repeat: Infinity, ease: 'linear', delay: 1 }
-    );
-
-    await window.electron.ipcRenderer.madara.setup(nodeConfig);
-
-    if (!releaseExists) {
-      await loaderAnimationControl.start({ opacity: [1, 0] });
-    }
-
-    redIrisOuterAnimate(
-      redIrisOuterScope.current,
-      { rotate: 2160 * 4, opacity: [1, 1, 1, 1, 0] },
-      {
-        duration: 1.4,
-        type: 'tween',
-        onComplete: () => {
-          redIrisOuterScope.current.style.display = 'none';
-          purpleIrisScope.current.style.display = 'block';
-          eyeScope.current.style.boxShadow = '2px 11px 23px 1px #391a5c';
-        },
-        rotate: {
-          duration: 1.4 * 2,
-          repeat: Infinity,
-          ease: 'linear',
-        },
-      }
-    );
-    await purpleIrisAnimate(
-      purpleIrisScope.current,
-      { rotate: 2160, opacity: [0, 1, 1, 1, 1] },
-      { duration: 1.4, delay: 1.4 }
-    );
-
     // wait for 1 second
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -209,14 +172,9 @@ export default function Landing() {
           onClick={() => setIsSettingsOpen(true)}
         />
       </HeadingRow>
-      <SharinganEye
-        redIrisScope={redIrisScope}
-        redIrisOuterScope={redIrisOuterScope}
-        purpleIrisScope={purpleIrisScope}
-        eyeScope={eyeScope}
-        brightnessOneControl={brightnessOneControl}
-        brightnessTwoControl={brightnessTwoControl}
-      />
+      <div>
+        <img src={animationGif} alt="Animation" style={{ width: '500px', height: 'auto', padding: '50px' }}/>
+      </div>
       <FormContainer onSubmit={handleFormSubmit} animate={formAnimationControl}>
         <Input
           verticalPadding="0.7rem"

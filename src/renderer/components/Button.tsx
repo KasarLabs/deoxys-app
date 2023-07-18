@@ -2,9 +2,9 @@
 import { styled } from 'styled-components';
 
 const ButtonContainer = styled.button`
-  background-color: rgba(230, 38, 0, 0.17);
+  background-color: rgba(255, 159, 64, 0.17);
   border-radius: 4px;
-  color: #e62600;
+  color: #ff9f40;
   cursor: pointer;
   border: none;
 

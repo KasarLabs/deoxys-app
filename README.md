@@ -1,2 +1,2 @@
-# madara-tsukuyomi
-Madara Desktop Application 
+# Deoxys Full Node Client
+Deoxys Desktop Application 

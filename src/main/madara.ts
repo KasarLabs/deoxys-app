@@ -112,6 +112,20 @@ export async function start(window: BrowserWindow, config: MadaraConfig) {
     '--telemetry-url',
     'wss://telemetry.madara.zone/submit 0',
   ];
+
+  // const args = [
+  //     '--base-path /tmp/deoxys',
+  //     '--chain local',
+  //     '--port 30333',
+  //     '--rpc-port 9944',
+  //     '--telemetry-url',
+  //     'wss://deoxys.kasar.io/submit/ 0',
+  //     '--validator',
+  //     '--name deoxys',
+  //     '--rpc-cors all',
+  //     '--sealing manual',
+  // ];
+
   if (config.name) {
     args.push('--name');
     args.push(config.name);
