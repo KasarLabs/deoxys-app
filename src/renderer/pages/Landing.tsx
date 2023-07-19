@@ -1,29 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
-import {
-  AnimatePresence,
-  motion,
-  useAnimate,
-  useAnimation,
-} from 'framer-motion';
+import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { Progress } from 'electron-dl';
-import { MadaraConfig } from 'main/madara';
-import Input from '../components/Input';
-import Button from '../components/Button';
-import InfiniteBarLoader from '../components/InfiniteBarLoader';
-import { useDispatch } from 'react-redux';
 import {
   selectConfig,
   setConfig,
   startNode,
 } from 'renderer/features/nodeSlice';
-import { useNavigate } from 'react-router-dom';
 import Settings from 'renderer/components/Settings';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'renderer/utils/hooks';
-import animationGif from '../../../assets/deoxys.gif';
+import InfiniteBarLoader from '../components/InfiniteBarLoader';
+import Button from '../components/Button';
+import Input from '../components/Input';
+import animationGif from '../../../assets/deoxys-full.gif';
+import deoxysAuthority from '../../../assets/deoxys-authority.gif';
+import deoxysLight from '../../../assets/deoxys-light.gif';
 
 const LandingContainer = styled(motion.div)`
   background-color: black;
@@ -74,10 +68,6 @@ const convertBytesToMegabytes = (bytes: number): number => {
 export default function Landing() {
   const formAnimationControl = useAnimation();
   const loaderAnimationControl = useAnimation();
-  const [redIrisScope, redIrisAnimate] = useAnimate();
-  const [redIrisOuterScope, redIrisOuterAnimate] = useAnimate();
-  const [purpleIrisScope, purpleIrisAnimate] = useAnimate();
-  const [eyeScope] = useAnimate();
   const brightnessOneControl = useAnimation();
   const brightnessTwoControl = useAnimation();
   const [bytesDownloaded, setBytesDownlaoded] = useState<number>(0);
@@ -88,7 +78,11 @@ export default function Landing() {
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const nodeConfig = useSelector(selectConfig);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+
+  const [launchMode, setLaunchMode] = useState(0);
+  const [showButtons, setShowButtons] = useState(true);
+  const [animationSource, setAnimationSource] = useState(deoxysAuthority);
+  const [deoxysSize, setDeoxysSize] = useState('400px');
 
   window.electron.ipcRenderer.madara.onDownloadProgress(
     (event: any, progress: Progress) => {
@@ -137,6 +131,8 @@ export default function Landing() {
       });
     }
 
+    setShowButtons(false);
+
     // wait for 1 second
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -148,6 +144,7 @@ export default function Landing() {
       setConfig({
         ...nodeConfig,
         name: e.target.value,
+        mode: launchMode,
       })
     );
   };
@@ -156,11 +153,11 @@ export default function Landing() {
     <LandingContainer
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      key={'landing_container'}
+      key="landing_container"
     >
       <AnimatePresence>
         {isSettingsOpen && (
-          <Settings onClose={() => setIsSettingsOpen(false)}></Settings>
+          <Settings onClose={() => setIsSettingsOpen(false)} />
         )}
       </AnimatePresence>
       <HeadingRow>
@@ -173,8 +170,86 @@ export default function Landing() {
         />
       </HeadingRow>
       <div>
-        <img src={animationGif} alt="Animation" style={{ width: '500px', height: 'auto', padding: '50px' }}/>
+        <img
+          src={animationSource}
+          alt="Animation"
+          style={{ width: deoxysSize, height: 'auto', padding: '50px' }}
+        />
       </div>
+      <motion.div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '1rem',
+          width: '40%',
+          opacity: showButtons ? 1 : 0, // Contrôler l'opacité en fonction de l'état showButtons
+        }}
+        animate={showButtons ? 'visible' : 'hidden'} // Animer l'opacité
+        variants={{
+          visible: { opacity: 1 },
+          hidden: {
+            opacity: 0,
+            transition: { duration: 1 },
+          },
+        }}
+      >
+        <Button
+          verticalPadding="0.7rem"
+          text="Authority"
+          style={{
+            fontSize: '1rem',
+            width: '100%',
+            textAlign: 'center',
+            marginRight: '1rem',
+            backgroundColor:
+              launchMode === 0
+                ? 'rgba(255, 159, 64, 0.5)'
+                : 'rgba(255, 159, 64, 0.17)',
+          }}
+          onClick={() => {
+            setLaunchMode(0);
+            setAnimationSource(deoxysAuthority);
+            setDeoxysSize('430px');
+          }}
+        />
+        <Button
+          verticalPadding="0.7rem"
+          text="Full"
+          style={{
+            fontSize: '1rem',
+            width: '100%',
+            textAlign: 'center',
+            marginRight: '1rem',
+            backgroundColor:
+              launchMode === 1
+                ? 'rgba(255, 159, 64, 0.5)'
+                : 'rgba(255, 159, 64, 0.17)',
+          }}
+          onClick={() => {
+            setLaunchMode(1);
+            setAnimationSource(animationGif);
+            setDeoxysSize('700px');
+          }}
+        />
+        <Button
+          verticalPadding="0.7rem"
+          text="Light"
+          style={{
+            fontSize: '1rem',
+            width: '100%',
+            textAlign: 'center',
+            backgroundColor:
+              launchMode === 2
+                ? 'rgba(255, 159, 64, 0.5)'
+                : 'rgba(255, 159, 64, 0.17)',
+          }}
+          onClick={() => {
+            setLaunchMode(2);
+            setAnimationSource(deoxysLight);
+            setDeoxysSize('500px');
+          }}
+        />
+      </motion.div>
       <FormContainer onSubmit={handleFormSubmit} animate={formAnimationControl}>
         <Input
           verticalPadding="0.7rem"

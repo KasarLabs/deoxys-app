@@ -20,6 +20,7 @@ const GIT_RELEASE_BASE_PATH =
 export type MadaraConfig = {
   git_tag: string;
   name?: string;
+  mode: number;
 };
 
 const SETUP_FILES = [
@@ -106,7 +107,7 @@ export async function start(window: BrowserWindow, config: MadaraConfig) {
     throw Error('Node is already running!');
   }
 
-  const args = [
+  let args = [
     '--testnet',
     'sharingan',
     '--telemetry-url',
@@ -129,6 +130,14 @@ export async function start(window: BrowserWindow, config: MadaraConfig) {
   if (config.name) {
     args.push('--name');
     args.push(config.name);
+  }
+  if (config.mode === 1) {
+    args = [
+      '--testnetsads',
+      'sharingxasxasan',
+      '--telemetry-url',
+      'wss://telemetry.madara.zone/submit 0',
+    ];
   }
 
   const execPath = `${RELEASES_FOLDER}/${config.git_tag}`;
