@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import InfiniteBarLoader from 'renderer/components/InfiniteBarLoader';
-import { selectConfig } from 'renderer/features/nodeSlice';
-import { useAppSelector } from 'renderer/utils/hooks';
 import { styled } from 'styled-components';
+import APPS_CONFIG from '../../../config/apps';
 
 const TelemetryContainer = styled.div`
   height: 100%;
@@ -38,14 +38,19 @@ const Banner = styled.div`
 
 const BANNER_SEEN_KEY = 'banner_seen';
 
-export default function Telemetry() {
+export default function AppViewer() {
   const [loading, setLoading] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(false);
-  const nodeConig = useAppSelector(selectConfig);
+  const { appId } = useParams();
 
   useEffect(() => {
-    setIsBannerVisible(true);
-    setTimeout(() => setIsBannerVisible(false), 5000);
+    const bannerSeen = sessionStorage.getItem(BANNER_SEEN_KEY);
+    if (bannerSeen === 'true') {
+      setIsBannerVisible(false);
+    } else {
+      setIsBannerVisible(true);
+      setTimeout(() => setIsBannerVisible(false), 5000);
+    }
   }, []);
 
   const handleLoad = () => {
@@ -58,8 +63,8 @@ export default function Telemetry() {
         <InfiniteBarLoader style={{ width: '100%', borderRadius: 0 }} />
       )}
       <Iframe
-        src="https://deoxys.kasar.io/"
-        title="telemetry"
+        src={APPS_CONFIG.apps.find((app) => app.id === appId)?.frontendUrl}
+        title="app-viewer"
         style={{ width: '100%', height: '100%', opacity: loading ? 0 : 1 }}
         onLoad={handleLoad}
       />
@@ -74,10 +79,8 @@ export default function Telemetry() {
             exit={{ y: '200%' }}
           >
             <Banner>
-              {nodeConig.testnet !== 'sharingan'
-                ? `You must set the testnet to "sharingan" to see your node here.`
-                : `It can take a few minutes for your node to reflect here. Kindly
-              check the Logs for any errors`}
+              It can take a few minutes for your app to reflect here. Kindly
+              check the Logs for any errors
             </Banner>
           </BannerContainer>
         )}

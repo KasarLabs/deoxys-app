@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import { styled } from 'styled-components';
 
 const ButtonContainer = styled.button`
@@ -26,7 +25,7 @@ export default function Button({
   placeholder?: string;
   text?: string;
   style?: object;
-  onClick?: () => void;
+  onClick: any;
 }) {
   return (
     <ButtonContainer

@@ -4,6 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { Progress } from 'electron-dl';
+import { faSliders } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Progress } from 'electron-dl';
+import {
+  AnimatePresence,
+  motion,
+  useAnimate,
+  useAnimation,
+} from 'framer-motion';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Settings from 'renderer/components/Settings';
 import {
   selectConfig,
   setConfig,
@@ -18,6 +31,12 @@ import Input from '../components/Input';
 import animationGif from '../../../assets/deoxys-full.gif';
 import deoxysAuthority from '../../../assets/deoxys-authority.gif';
 import deoxysLight from '../../../assets/deoxys-light.gif';
+import { useAppDispatch } from 'renderer/utils/hooks';
+import { styled } from 'styled-components';
+import Button from '../components/Button';
+import InfiniteBarLoader from '../components/InfiniteBarLoader';
+import Input from '../components/Input';
+import SharinganEye from '../components/SharinganEye';
 
 const LandingContainer = styled(motion.div)`
   background-color: black;
@@ -65,6 +84,7 @@ const convertBytesToMegabytes = (bytes: number): number => {
   return Math.round((bytes / 1024 / 1024) * 100) / 100;
 };
 
+
 export default function Landing() {
   const formAnimationControl = useAnimation();
   const loaderAnimationControl = useAnimation();
@@ -91,8 +111,9 @@ export default function Landing() {
       }
       setBytesDownlaoded(progress.transferredBytes);
     }
-  );
-
+    );
+    
+    const navigate = useNavigate();
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!nodeConfig.name) {
@@ -134,9 +155,11 @@ export default function Landing() {
     setShowButtons(false);
 
     // wait for 1 second
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
     dispatch(startNode());
+    navigate('/navigation/logs');
   };
 
   const handleNameChange = (e: any) => {
@@ -252,10 +275,14 @@ export default function Landing() {
       </motion.div>
       <FormContainer onSubmit={handleFormSubmit} animate={formAnimationControl}>
         <Input
-          verticalPadding="0.7rem"
           placeholder="What name shall you be known by in this realm?"
-          style={{ fontSize: '1rem', width: '40%', textAlign: 'center' }}
+          style={{
+            fontSize: '1rem',
+            width: '40%',
+            textAlign: 'center',
+          }}
           onChange={handleNameChange}
+          value={nodeConfig.name}
         />
         <Button
           verticalPadding="0.7rem"
@@ -266,6 +293,7 @@ export default function Landing() {
             textAlign: 'center',
             marginTop: '1rem',
           }}
+          onClick={handleFormSubmit}
         />
       </FormContainer>
       <InfiniteLoaderContainer
