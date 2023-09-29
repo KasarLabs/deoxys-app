@@ -156,38 +156,42 @@ export default function Navigtion() {
           Deoxys
         </NavbarHeading>
         <NavbarItemsContainer>
-          {NAVBAR_ITEMS.map((item) => (
-            <NavbarItem
-              onClick={() => {
-                navigate(`./${item.path}`);
-                setNavbarActiveId(item.id);
-              }}
-              active={navbarActiveId === item.id}
-            >
-              {item.name}
-            </NavbarItem>
-          ))}
+        {NAVBAR_ITEMS.map((item) => (
+   <NavbarItem
+       key={item.id}
+       onClick={() => {
+           navigate(`./${item.path}`);
+           setNavbarActiveId(item.id);
+       }}
+       active={navbarActiveId === item.id}
+   >
+       {item.name}
+   </NavbarItem>
+))}
+
           {!_.isEmpty(runningApps) && <AppSeperator />}
           {Object.entries(runningApps)
-            .filter(([, isRunning]) => isRunning)
-            .map(([appId]) => {
-              const app = APPS_CONFIG.apps.filter((a) => a.id === appId)[0];
-              if (!app.showFrontend) {
-                return <div />;
-              }
-              return (
-                <NavbarItem
-                  onClick={() => {
+    .filter(([, isRunning]) => isRunning)
+    .map(([appId]) => {
+        const app = APPS_CONFIG.apps.filter((a) => a.id === appId)[0];
+        if (!app.showFrontend) {
+            return null;
+        }
+        return (
+            <NavbarItem
+                key={appId}
+                onClick={() => {
                     navigate(`./apps/${appId}`);
                     setNavbarActiveId(appId);
-                  }}
-                  active={navbarActiveId === appId}
-                >
-                  <NavbarImage src={app.logoUrl} />
-                  {app.appName}
-                </NavbarItem>
-              );
-            })}
+                }}
+                active={navbarActiveId === appId}
+            >
+                <NavbarImage src={app.logoUrl} />
+                {app.appName}
+            </NavbarItem>
+        );
+    })}
+
           <NavbarItem
             style={{ display: 'flex', marginTop: 'auto' }}
             onClick={() => handleScreenshot()}
