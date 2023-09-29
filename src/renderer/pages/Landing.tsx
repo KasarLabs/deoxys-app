@@ -37,6 +37,7 @@ import Button from '../components/Button';
 import InfiniteBarLoader from '../components/InfiniteBarLoader';
 import Input from '../components/Input';
 import SharinganEye from '../components/SharinganEye';
+import useErrorBoundaryMain from 'renderer/hooks/useErrorBoundaryMain';
 
 const LandingContainer = styled(motion.div)`
   background-color: black;
@@ -171,6 +172,8 @@ export default function Landing() {
       })
     );
   };
+
+  useErrorBoundaryMain();
 
   return (
     <LandingContainer

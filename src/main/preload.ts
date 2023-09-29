@@ -39,7 +39,15 @@ const electronHandler = {
         ipcRenderer.invoke('madara-app-update-settings', appId, settings),
       getAppSettings: (appId: string) =>
         ipcRenderer.invoke('madara-app-get-settings', appId),
+      fetchAllRunningApps: () =>
+        ipcRenderer.invoke('madara-fetch-all-running-apps'),
     },
+    onUnhandledError: (callback: (message: string) => void) =>
+      ipcRenderer.on('backend-error', (event, message) => callback(message)),
+    offUnhandledError: (callback: (message: string) => void) =>
+      ipcRenderer.removeListener('backend-error', (event, message) =>
+        callback(message)
+      ),
   },
 };
 

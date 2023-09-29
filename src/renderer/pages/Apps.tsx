@@ -1,9 +1,11 @@
+/* eslint-disable prettier/prettier */
 import {
   faCog,
   faInfo,
   faPause,
   faPlay,
   faTerminal,
+  faExclamationCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Progress } from 'electron-dl';
@@ -11,13 +13,17 @@ import { useEffect, useState } from 'react';
 import { Id, ToastContainer, ToastOptions, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from 'renderer/components/Button';
+import Tooltip from 'renderer/components/Tooltip';
 import defaultToastStyleOptions from 'shared/constants';
 import {
+  fetchAndSetRunningApps,
   selectInstalledApps,
   selectRunningApps,
   setAppAsInstalled,
   setupInstalledApps,
 } from 'renderer/features/appsSlice';
+import { useSelector } from 'react-redux';
+import { selectConfig, selectIsRunning } from 'renderer/features/nodeSlice';
 import { useAppDispatch, useAppSelector } from 'renderer/utils/hooks';
 import { styled } from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
@@ -123,7 +129,8 @@ export default function Apps() {
   const runningApps = useAppSelector(selectRunningApps);
   const navigate = useNavigate();
   const location = useLocation();
-
+  const isNodeRunning = useAppSelector(selectIsRunning);
+  const nodeConfigRelease = useSelector(selectConfig).release;
   const dispatch = useAppDispatch();
 
   const handleAppDownload = async (appId: string) => {
@@ -136,6 +143,16 @@ export default function Apps() {
     const appSettings =
       await window.electron.ipcRenderer.madaraApp.getAppSettings(appId);
     const appConfig = APPS_CONFIG.apps.find((app) => app.id === appId);
+
+    if (appConfig?.requiresRunningNode) {
+      if (!isNodeRunning) {
+        dispatch(
+          showSnackbar('Node must be running in order to start the app')
+        );
+        return;
+      }
+    }
+
     if (appConfig?.settings && appConfig.settings.length > 0) {
       const missingSettings = appConfig.settings.filter(
         (setting) => !appSettings[setting.environmentName]
@@ -158,6 +175,7 @@ export default function Apps() {
   };
 
   useEffect(() => {
+    dispatch(fetchAndSetRunningApps());
     dispatch(setupInstalledApps());
 
     window.electron.ipcRenderer.madaraApp.onAppDownloadProgress(
@@ -207,6 +225,9 @@ export default function Apps() {
       <Heading>Apps</Heading>
       <AppRows>
         {APPS_CONFIG.apps.map((app) => {
+          const appConfig = APPS_CONFIG.apps.find(
+            (configApp) => configApp.id === app.id
+          );
           let appRightJsx;
           if (runningApps[app.id]) {
             appRightJsx = (
@@ -228,11 +249,24 @@ export default function Apps() {
               appRightJsx = <Loader />;
             } else {
               appRightJsx = (
-                <FontAwesomeIcon
-                  onClick={() => handleAppStart(app.id)}
-                  icon={faPlay}
-                  style={{ cursor: 'pointer' }}
-                />
+                <>
+                  <FontAwesomeIcon
+                    onClick={() => handleAppStart(app.id)}
+                    icon={faPlay}
+                    style={{ cursor: 'pointer' }}
+                  />
+                  {appConfig?.stableNodeVersion !== nodeConfigRelease && (
+                    <Tooltip text="Warning: Node version might be outdated or incompatible">
+                      <FontAwesomeIcon
+                        icon={faExclamationCircle}
+                        style={{
+                          cursor: 'pointer',
+                          marginLeft: '15px',
+                        }}
+                      />
+                    </Tooltip>
+                  )}
+                </>
               );
             }
           } else if (loading[app.id]) {
