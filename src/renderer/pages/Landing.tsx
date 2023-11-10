@@ -4,7 +4,6 @@ import { Progress } from 'electron-dl';
 import {
   AnimatePresence,
   motion,
-  useAnimate,
   useAnimation,
 } from 'framer-motion';
 import React, { useState } from 'react';
@@ -20,13 +19,8 @@ import { useAppDispatch } from 'renderer/utils/hooks';
 import InfiniteBarLoader from '../components/InfiniteBarLoader';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import animationGif from '../../../assets/deoxys-full.gif';
-import deoxysAuthority from '../../../assets/deoxys-authority.gif';
-import deoxysLight from '../../../assets/deoxys-light.gif';
 import { styled } from 'styled-components';
-import SharinganEye from '../components/SharinganEye';
 import useErrorBoundaryMain from 'renderer/hooks/useErrorBoundaryMain';
-
 
 const LandingContainer = styled(motion.div)`
   background-color: black;
@@ -79,7 +73,10 @@ export default function Landing() {
   const loaderAnimationControl = useAnimation();
   const [launchMode, setLaunchMode] = useState(0);
   const [showButtons, setShowButtons] = useState(true);
-  const [animationSource, setAnimationSource] = useState(deoxysAuthority);
+  const [animationSource, setAnimationSource] = useState('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7i20-626a1a82-a3ab-4433-944d-8acc4a4449a3.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2kyMC02MjZhMWE4Mi1hM2FiLTQ0MzMtOTQ0ZC04YWNjNGE0NDQ5YTMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.tLOS6q-5axaUtRhnRyD8sH8W2f2Snzc9EzBxMOL9USc');
+  const [DeoxysAutorithy, setDeoxysAuthority] = useState('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7i20-626a1a82-a3ab-4433-944d-8acc4a4449a3.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2kyMC02MjZhMWE4Mi1hM2FiLTQ0MzMtOTQ0ZC04YWNjNGE0NDQ5YTMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.tLOS6q-5axaUtRhnRyD8sH8W2f2Snzc9EzBxMOL9USc');
+  const [DeoxysFull, setDeoxysFull] = useState('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7hk2-6ae83044-3ca0-49be-b577-bdf48c95e359.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2hrMi02YWU4MzA0NC0zY2EwLTQ5YmUtYjU3Ny1iZGY0OGM5NWUzNTkuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.j8qJmUEtMwcx-UaXhJ_QY-6uaESAal5BJAITQZbXKn8');
+  const [DeoxysLight, setDeoxyslight] = useState('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7i99-354d57f4-a70a-4d20-b387-cd0af17e66fe.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2k5OS0zNTRkNTdmNC1hNzBhLTRkMjAtYjM4Ny1jZDBhZjE3ZTY2ZmUuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.NlaeZaj86DXvHDDU-SqIpRLOXF0EczR02ide_8ig5uQ');
   const [deoxysSize, setDeoxysSize] = useState('400px');
   const brightnessOneControl = useAnimation();
   const brightnessTwoControl = useAnimation();
@@ -211,6 +208,7 @@ export default function Landing() {
           },
         }}
       >
+
         <Button
           verticalPadding="0.7rem"
           text="Authority"
@@ -226,7 +224,7 @@ export default function Landing() {
           }}
           onClick={() => {
             setLaunchMode(0);
-            setAnimationSource(deoxysAuthority);
+            setAnimationSource(DeoxysAutorithy);
             setDeoxysSize('430px');
           }}
         />
@@ -245,7 +243,7 @@ export default function Landing() {
           }}
           onClick={() => {
             setLaunchMode(1);
-            setAnimationSource(animationGif);
+            setAnimationSource(DeoxysFull);
             setDeoxysSize('700px');
           }}
         />
@@ -263,7 +261,7 @@ export default function Landing() {
           }}
           onClick={() => {
             setLaunchMode(2);
-            setAnimationSource(deoxysLight);
+            setAnimationSource(DeoxysLight);
             setDeoxysSize('500px');
           }}
         />
