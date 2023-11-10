@@ -23,7 +23,7 @@ const SettingsTitle = styled.div`
 const SettingsLabel = styled.div`
   font-size: 1rem;
   margin-bottom: 10px;
-  color: #e62600;
+  color: #ff9f40;
 `;
 
 export default function AppSettings({ close }: { close: any }) {

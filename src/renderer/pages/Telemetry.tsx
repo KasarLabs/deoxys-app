@@ -59,6 +59,7 @@ export default function Telemetry() {
       )}
       <Iframe
         src="https://deoxys.kasar.io/"
+
         title="telemetry"
         style={{ width: '100%', height: '100%', opacity: loading ? 0 : 1 }}
         onLoad={handleLoad}

@@ -92,7 +92,7 @@ const AppRowRight = styled.div`
 const Loader = styled.div`
   border: 3px solid #444;
   border-radius: 50%;
-  border-top: 3px solid #e62600;
+  border-top: 3px solid #ff9f40;
   width: 22.5px;
   height: 22.5px;
   -webkit-animation: spin 2s linear infinite; /* Safari */

@@ -1,9 +1,3 @@
-import React, { useState } from 'react';
-import { styled } from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSliders } from '@fortawesome/free-solid-svg-icons';
-import { AnimatePresence, motion, useAnimation } from 'framer-motion';
-import { Progress } from 'electron-dl';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Progress } from 'electron-dl';
@@ -22,8 +16,6 @@ import {
   setConfig,
   startNode,
 } from 'renderer/features/nodeSlice';
-import Settings from 'renderer/components/Settings';
-import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'renderer/utils/hooks';
 import InfiniteBarLoader from '../components/InfiniteBarLoader';
 import Button from '../components/Button';
@@ -31,13 +23,10 @@ import Input from '../components/Input';
 import animationGif from '../../../assets/deoxys-full.gif';
 import deoxysAuthority from '../../../assets/deoxys-authority.gif';
 import deoxysLight from '../../../assets/deoxys-light.gif';
-import { useAppDispatch } from 'renderer/utils/hooks';
 import { styled } from 'styled-components';
-import Button from '../components/Button';
-import InfiniteBarLoader from '../components/InfiniteBarLoader';
-import Input from '../components/Input';
 import SharinganEye from '../components/SharinganEye';
 import useErrorBoundaryMain from 'renderer/hooks/useErrorBoundaryMain';
+
 
 const LandingContainer = styled(motion.div)`
   background-color: black;
@@ -85,10 +74,13 @@ const convertBytesToMegabytes = (bytes: number): number => {
   return Math.round((bytes / 1024 / 1024) * 100) / 100;
 };
 
-
 export default function Landing() {
   const formAnimationControl = useAnimation();
   const loaderAnimationControl = useAnimation();
+  const [launchMode, setLaunchMode] = useState(0);
+  const [showButtons, setShowButtons] = useState(true);
+  const [animationSource, setAnimationSource] = useState(deoxysAuthority);
+  const [deoxysSize, setDeoxysSize] = useState('400px');
   const brightnessOneControl = useAnimation();
   const brightnessTwoControl = useAnimation();
   const [bytesDownloaded, setBytesDownlaoded] = useState<number>(0);
@@ -99,11 +91,7 @@ export default function Landing() {
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const nodeConfig = useSelector(selectConfig);
   const dispatch = useAppDispatch();
-
-  const [launchMode, setLaunchMode] = useState(0);
-  const [showButtons, setShowButtons] = useState(true);
-  const [animationSource, setAnimationSource] = useState(deoxysAuthority);
-  const [deoxysSize, setDeoxysSize] = useState('400px');
+  const navigate = useNavigate();
 
   window.electron.ipcRenderer.madara.onDownloadProgress(
     (event: any, progress: Progress) => {
@@ -112,9 +100,8 @@ export default function Landing() {
       }
       setBytesDownlaoded(progress.transferredBytes);
     }
-    );
-    
-    const navigate = useNavigate();
+  );
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!nodeConfig.name) {
@@ -137,7 +124,7 @@ export default function Landing() {
       transition: { duration: 1 },
     });
 
-    // make the height of the form 0 so that the spacing between the loader and the eye is correct
+
     formAnimationControl.start({
       height: 0,
       transition: { delay: 1, duration: 1 },
@@ -153,12 +140,17 @@ export default function Landing() {
       });
     }
 
-    setShowButtons(false);
+    await window.electron.ipcRenderer.madara.setup(nodeConfig);
+
+    if (!releaseExists) {
+      await loaderAnimationControl.start({ opacity: [1, 0] });
+    }
 
     // wait for 1 second
     await new Promise((resolve) => {
       setTimeout(resolve, 1000);
     });
+
     dispatch(startNode());
     navigate('/navigation/logs');
   };
@@ -168,7 +160,6 @@ export default function Landing() {
       setConfig({
         ...nodeConfig,
         name: e.target.value,
-        mode: launchMode,
       })
     );
   };
@@ -195,6 +186,7 @@ export default function Landing() {
           onClick={() => setIsSettingsOpen(true)}
         />
       </HeadingRow>
+
       <div>
         <img
           src={animationSource}
@@ -276,6 +268,7 @@ export default function Landing() {
           }}
         />
       </motion.div>
+
       <FormContainer onSubmit={handleFormSubmit} animate={formAnimationControl}>
         <Input
           placeholder="What name shall you be known by in this realm?"

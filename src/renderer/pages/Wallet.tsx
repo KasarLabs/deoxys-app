@@ -22,7 +22,7 @@ const WalletContainer = styled.div`
 `;
 
 const Label = styled.div`
-  color: #e62600;
+  color: #ff9f40;
   font-weight: 600;
   font-size: 1.15rem;
 `;

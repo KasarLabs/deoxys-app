@@ -13,19 +13,6 @@ import { MADARA_RELEASES_URL } from '../../config/constants';
 const RELEASES_FOLDER = `${MADARA_APP_PATH}/releases`;
 const CHAIN_DB_FOLDER = `${MADARA_APP_PATH}/data`;
 
-// we download the chain specs for now because of an issue in the binaries
-// we can skip this step once this is fixed -  https://github.com/keep-starknet-strange/madara/issues/728
-const CHAIN_SPECS_FOLDER = `${app.getPath('home')}/.madara/chain-specs`;
-
-// TODO: update this once we have binary releases on Madara
-const GIT_RELEASE_BASE_PATH =
-  'https://raw.githubusercontent.com/apoorvsadana/madara-app/main/config/releases';
-
-export type MadaraConfig = {
-  git_tag: string;
-  name?: string;
-  mode: number;
-};
 const EQUALITY_FLAGS = ['RPCMethods', 'RPCCors'];
 const BOOLEAN_FLAGS = ['RPCExternal', 'developmentMode'];
 

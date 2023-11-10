@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import _ from 'lodash';
 import { ReactNode, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import DeoxysLogo from '../../../assets/deoxys-logo.jpg';
 import { selectRunningApps } from 'renderer/features/appsSlice';
 import {
   deleteNode,
@@ -15,7 +14,7 @@ import { showSnackbar } from 'renderer/store/snackbar';
 import { useAppDispatch, useAppSelector } from 'renderer/utils/hooks';
 import { styled } from 'styled-components';
 import Spinner from 'renderer/components/Spinner';
-import MadaraLogo from '../../../assets/madara-logo.png';
+import DeoxysLogo from '../../../assets/deoxys-logo.jpg';
 import APPS_CONFIG from '../../../config/apps';
 import Apps from './Apps';
 import Logs from './Logs';
@@ -73,7 +72,7 @@ const NavbarItemsContainer = styled.div`
 
 const NavbarItem = styled.div<{ active: boolean }>`
   background-color: ${(props) =>
-    props.active ? 'rgba(230, 38, 0, 0.17)' : 'transparent'};
+    props.active ? 'rgba(255, 159, 64, 0.17)' : 'transparent'};
   color: ${(props) => (props.active ? '#ff9f40' : '#9CA3AF')};
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
@@ -156,42 +155,38 @@ export default function Navigtion() {
           Deoxys
         </NavbarHeading>
         <NavbarItemsContainer>
-        {NAVBAR_ITEMS.map((item) => (
-   <NavbarItem
-       key={item.id}
-       onClick={() => {
-           navigate(`./${item.path}`);
-           setNavbarActiveId(item.id);
-       }}
-       active={navbarActiveId === item.id}
-   >
-       {item.name}
-   </NavbarItem>
-))}
-
+          {NAVBAR_ITEMS.map((item) => (
+            <NavbarItem
+              onClick={() => {
+                navigate(`./${item.path}`);
+                setNavbarActiveId(item.id);
+              }}
+              active={navbarActiveId === item.id}
+            >
+              {item.name}
+            </NavbarItem>
+          ))}
           {!_.isEmpty(runningApps) && <AppSeperator />}
           {Object.entries(runningApps)
-    .filter(([, isRunning]) => isRunning)
-    .map(([appId]) => {
-        const app = APPS_CONFIG.apps.filter((a) => a.id === appId)[0];
-        if (!app.showFrontend) {
-            return null;
-        }
-        return (
-            <NavbarItem
-                key={appId}
-                onClick={() => {
+            .filter(([, isRunning]) => isRunning)
+            .map(([appId]) => {
+              const app = APPS_CONFIG.apps.filter((a) => a.id === appId)[0];
+              if (!app.showFrontend) {
+                return <div />;
+              }
+              return (
+                <NavbarItem
+                  onClick={() => {
                     navigate(`./apps/${appId}`);
                     setNavbarActiveId(appId);
-                }}
-                active={navbarActiveId === appId}
-            >
-                <NavbarImage src={app.logoUrl} />
-                {app.appName}
-            </NavbarItem>
-        );
-    })}
-
+                  }}
+                  active={navbarActiveId === appId}
+                >
+                  <NavbarImage src={app.logoUrl} />
+                  {app.appName}
+                </NavbarItem>
+              );
+            })}
           <NavbarItem
             style={{ display: 'flex', marginTop: 'auto' }}
             onClick={() => handleScreenshot()}

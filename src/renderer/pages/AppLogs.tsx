@@ -92,7 +92,7 @@ export default function AppLogs({ close }: { close: any }) {
           <Tab
             style={{
               borderBottom:
-                selectedContainer === container.name ? '1px solid #e62600' : '',
+                selectedContainer === container.name ? '1px solid #ff9f40' : '',
             }}
             onClick={() => setSelectedContaner(container.name as string)}
           >
