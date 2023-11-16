@@ -1,11 +1,11 @@
 import { app } from 'electron';
 
-export const MADARA_APP_ROOT_FOLDER = '.madara-app';
+export const MADARA_APP_ROOT_FOLDER = '.deoxys-app';
 export const MADARA_APP_PATH = `${app.getPath(
   'home'
 )}/${MADARA_APP_ROOT_FOLDER}`;
 
-export const TELEMETRY_LINK = 'https://telemetry.madara.zone';
+export const TELEMETRY_LINK = 'https://deoxys.kasar.io/';
 
 export const NODE_CONFIG_DIRECTORY = {
   RPCCors: '--rpc-cors',

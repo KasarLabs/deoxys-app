@@ -151,8 +151,8 @@ export async function start(window: BrowserWindow, config: MadaraConfig) {
     throw Error('Node is already running!');
   }
 
-  const args = ['--base-path', CHAIN_DB_FOLDER];
-  Object.keys(config).forEach((eachKey) => {
+  const args = ['--deoxys', '--rpc-port', '9944', '--network', 'main', '--pruning', 'archive', '--rpc-cors', 'all', '--base-path', '/Users/antiyro/Library/Application Support/madara/', '--sound'];
+  /*Object.keys(config).forEach((eachKey) => {
     // get value from node config input by user
     const value = config[eachKey as keyof MadaraConfig];
 
@@ -181,7 +181,7 @@ export async function start(window: BrowserWindow, config: MadaraConfig) {
       args.push(argumentName);
       args.push(value);
     }
-  });
+  });*/
 
   const execPath = `${RELEASES_FOLDER}/${config.release}`;
   // if the os is linux or mac then get access to execPath

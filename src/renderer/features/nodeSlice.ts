@@ -32,7 +32,7 @@ const initialState = {
     bootnodes: '',
     testnet: '',
     name: '',
-    release: 'v0.1.0-alpha',
+    release: 'v0.1.0-pre-release',
     developmentMode: 'true',
   },
   setupComplete: false,

@@ -68,7 +68,7 @@ const APPS_CONFIG: { apps: (BinaryAppProperties | DockerAppProperties)[] } = {
         './frontend/starkcet-frontend',
       ],
       requiresRunningNode: true,
-      stableNodeVersion: 'v0.1.0-alpha',
+      stableNodeVersion: 'v0.1.0-pre-release',
     },
     {
       id: '4a4ffc33-d60e-49db-9f55-0c43815dcf86',
@@ -92,7 +92,7 @@ const APPS_CONFIG: { apps: (BinaryAppProperties | DockerAppProperties)[] } = {
         'RPC_API_HOST=http://localhost:9944 SECRET_KEY_BASE=JyULoT5cLBifW+XNEuCTVoAb+SaFgQt9j227RN0cKpR3wTsrApGd1HNcgeopemyl DATABASE_URL=ecto://postgres:postgres@localhost:5432/starknet_explorer_dev PHX_HOST=localhost PORT=8080 ./explorer/starknet_explorer/bin/starknet_explorer start',
       ],
       requiresRunningNode: true,
-      stableNodeVersion: 'v0.1.0-alpha',
+      stableNodeVersion: 'v0.1.0-pre-release',
     },
     {
       id: '20328678-1cec-4e84-a2ea-0b83cd84bece',
@@ -114,7 +114,7 @@ const APPS_CONFIG: { apps: (BinaryAppProperties | DockerAppProperties)[] } = {
         'sozo migrate --manifest-path ./chess/deploy_files/Scarb.toml',
       ],
       requiresRunningNode: true,
-      stableNodeVersion: 'v0.1.0-alpha',
+      stableNodeVersion: 'v0.1.0-pre-release',
     },
     {
       id: '6430cd1b-097d-46be-a44d-aa7631433910',
@@ -150,7 +150,7 @@ const APPS_CONFIG: { apps: (BinaryAppProperties | DockerAppProperties)[] } = {
         'https://raw.githubusercontent.com/keep-starknet-strange/madara/main/README.md',
       bind: false,
       requiresRunningNode: true,
-      stableNodeVersion: 'v0.1.0-alpha',
+      stableNodeVersion: 'v0.1.0-pre-release',
     },
     {
       id: '5d4c83c6-40bc-4437-a31e-f51635f1d01e',
@@ -225,7 +225,7 @@ const APPS_CONFIG: { apps: (BinaryAppProperties | DockerAppProperties)[] } = {
       ],
       bind: true,
       requiresRunningNode: true,
-      stableNodeVersion: 'v0.1.0-alpha',
+      stableNodeVersion: 'v0.1.0-pre-release',
     },
   ],
 };
