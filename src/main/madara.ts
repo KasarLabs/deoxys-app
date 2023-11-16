@@ -38,19 +38,19 @@ async function getReleaseUrl(config: MadaraConfig): Promise<string> {
 
   if (platform === 'darwin') {
     if (arch === 'arm64') {
-      assetName = 'aarch64-apple-darwin-madara';
+      assetName = 'aarch64-apple-darwin-deoxys';
     } else if (arch === 'x64') {
-      assetName = 'x86_64-apple-darwin-madara';
+      assetName = 'x86_64-apple-darwin-deoxys';
     }
   } else if (platform === 'linux') {
     if (arch === 'arm64') {
-      assetName = 'aarch64-unknown-linux-gnu-madara';
+      assetName = 'aarch64-unknown-linux-gnu-deoxys';
     } else if (arch === 'x64') {
-      assetName = 'x86_64-unknown-linux-gnu-madara';
+      assetName = 'x86_64-unknown-linux-gnu-deoxys';
     }
   } else if (platform === 'win32') {
     if (arch === 'x64') {
-      assetName = 'x86_64-pc-windows-msvc-madara.exe';
+      assetName = 'x86_64-pc-windows-msvc-deoxys.exe';
     }
   }
 
