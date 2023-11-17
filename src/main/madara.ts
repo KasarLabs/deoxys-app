@@ -13,19 +13,6 @@ import { MADARA_RELEASES_URL } from '../../config/constants';
 const RELEASES_FOLDER = `${MADARA_APP_PATH}/releases`;
 const CHAIN_DB_FOLDER = `${MADARA_APP_PATH}/data`;
 
-// we download the chain specs for now because of an issue in the binaries
-// we can skip this step once this is fixed -  https://github.com/keep-starknet-strange/madara/issues/728
-const CHAIN_SPECS_FOLDER = `${app.getPath('home')}/.madara/chain-specs`;
-
-// TODO: update this once we have binary releases on Madara
-const GIT_RELEASE_BASE_PATH =
-  'https://raw.githubusercontent.com/apoorvsadana/madara-app/main/config/releases';
-
-export type MadaraConfig = {
-  git_tag: string;
-  name?: string;
-  mode: number;
-};
 const EQUALITY_FLAGS = ['RPCMethods', 'RPCCors'];
 const BOOLEAN_FLAGS = ['RPCExternal', 'developmentMode'];
 
@@ -51,19 +38,19 @@ async function getReleaseUrl(config: MadaraConfig): Promise<string> {
 
   if (platform === 'darwin') {
     if (arch === 'arm64') {
-      assetName = 'aarch64-apple-darwin-madara';
+      assetName = 'aarch64-apple-darwin-deoxys';
     } else if (arch === 'x64') {
-      assetName = 'x86_64-apple-darwin-madara';
+      assetName = 'x86_64-apple-darwin-deoxys';
     }
   } else if (platform === 'linux') {
     if (arch === 'arm64') {
-      assetName = 'aarch64-unknown-linux-gnu-madara';
+      assetName = 'aarch64-unknown-linux-gnu-deoxys';
     } else if (arch === 'x64') {
-      assetName = 'x86_64-unknown-linux-gnu-madara';
+      assetName = 'x86_64-unknown-linux-gnu-deoxys';
     }
   } else if (platform === 'win32') {
     if (arch === 'x64') {
-      assetName = 'x86_64-pc-windows-msvc-madara.exe';
+      assetName = 'x86_64-pc-windows-msvc-deoxys.exe';
     }
   }
 
@@ -164,8 +151,8 @@ export async function start(window: BrowserWindow, config: MadaraConfig) {
     throw Error('Node is already running!');
   }
 
-  const args = ['--base-path', CHAIN_DB_FOLDER];
-  Object.keys(config).forEach((eachKey) => {
+  const args = ['--deoxys', '--rpc-port', '9944', '--network', 'main', '--pruning', 'archive', '--rpc-cors', 'all', '--base-path', '/Users/antiyro/Library/Application Support/madara/', '--sound'];
+  /*Object.keys(config).forEach((eachKey) => {
     // get value from node config input by user
     const value = config[eachKey as keyof MadaraConfig];
 
@@ -194,7 +181,7 @@ export async function start(window: BrowserWindow, config: MadaraConfig) {
       args.push(argumentName);
       args.push(value);
     }
-  });
+  });*/
 
   const execPath = `${RELEASES_FOLDER}/${config.release}`;
   // if the os is linux or mac then get access to execPath

@@ -1,5 +1,3 @@
-# Deoxys Full Node Client
-Deoxys Desktop Application 
 
 <div align="center">
   <img src="docs/assets/sharingan_eye.png" height="250">

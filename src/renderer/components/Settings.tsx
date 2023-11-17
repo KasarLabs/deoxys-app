@@ -59,7 +59,7 @@ const SettingContainer = styled.div`
 `;
 
 const SettingHeading = styled.div`
-  color: #e62600;
+  color: #ff9f40;
   font-weight: 600;
 `;
 
