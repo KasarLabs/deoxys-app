@@ -236,13 +236,6 @@ export async function updateAppSettings(appId: string, settings: any) {
   );
 }
 
-export async function updateAppSettings (appId: string, settings: any) {
-  fs.writeFileSync(
-    `${APPS_FOLDER}/${appId}/settings.json`,
-    JSON.stringify(settings)
-  );
-}
-
 export async function getAppSettings(appId: string) {
   const settingsPath = `${APPS_FOLDER}/${appId}/settings.json`;
   if (existsSync(settingsPath)) {
