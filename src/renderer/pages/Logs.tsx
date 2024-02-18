@@ -5,7 +5,7 @@ import { selectLogs } from 'renderer/features/nodeSlice';
 import { styled } from 'styled-components';
 
 const TerminalContainer = styled(motion.div)`
-  color: #cccccc;
+  color: #fff;
   white-space: pre-wrap;
   overflow-y: scroll;
   height: 99%;
@@ -16,11 +16,11 @@ const TerminalContainer = styled(motion.div)`
 `;
 
 const TerminalTime = styled.span`
-  color: #868686;
+  color: #fff;
 `;
 
 const TerminalNormalLog = styled.span`
-  color: #cccccc;
+  color: #fff;
 `;
 
 export default function Logs() {

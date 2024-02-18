@@ -21,10 +21,10 @@ import { MadaraConfig } from './types';
 import FireBaseService from './firebase';
 import { IpcMainInvokeEvent } from 'electron';
 
-
 let mainWindow: BrowserWindow | null = null;
 
-process.on('uncaughtException', (error) => { //Global error handler, to catch error outside IPChandler. Works when electronmon is off
+process.on('uncaughtException', (error) => {
+  //Global error handler, to catch error outside IPChandler. Works when electronmon is off
   console.error('Unhandled error from main process:', error);
 
   BrowserWindow.getAllWindows().forEach((win) => {
@@ -32,12 +32,15 @@ process.on('uncaughtException', (error) => { //Global error handler, to catch er
   });
 });
 
-function withErrorHandler(handler: (event: IpcMainInvokeEvent, ...args: any[]) => Promise<any>) { //IPC error handler
-  return async function(event: IpcMainInvokeEvent, ...args: any[]) {
+function withErrorHandler(
+  handler: (event: IpcMainInvokeEvent, ...args: any[]) => Promise<any>
+) {
+  //IPC error handler
+  return async function (event: IpcMainInvokeEvent, ...args: any[]) {
     try {
       return await handler(event, ...args);
     } catch (error) {
-      console.error("Error in IPC handler:", error);
+      console.error('Error in IPC handler:', error);
       event.sender.send('backend-error', error);
     }
   };
@@ -51,64 +54,95 @@ class AppUpdater {
   }
 }
 
+ipcMain.handle(
+  'madara-start',
+  withErrorHandler(async (event, config: MadaraConfig) => {
+    await Madara.start(mainWindow as BrowserWindow, config);
+  })
+);
 
-ipcMain.handle('madara-start', withErrorHandler(async (event, config: MadaraConfig) => {
-  await Madara.start(mainWindow as BrowserWindow, config);
-}));
+ipcMain.handle(
+  'madara-stop',
+  withErrorHandler(async () => {
+    await Madara.stop();
+  })
+);
 
-ipcMain.handle('madara-stop', withErrorHandler(async () => {
-  await Madara.stop();
-}));
+ipcMain.handle(
+  'madara-delete',
+  withErrorHandler(async () => {
+    await Madara.deleteNode();
+  })
+);
 
-ipcMain.handle('madara-delete', withErrorHandler(async () => {
-  await Madara.deleteNode();
-}));
+ipcMain.handle(
+  'madara-setup',
+  withErrorHandler(async (event, config: MadaraConfig) => {
+    await Madara.setup(mainWindow as BrowserWindow, config);
+  })
+);
 
-ipcMain.handle('madara-setup', withErrorHandler(async (event, config: MadaraConfig) => {
-  await Madara.setup(mainWindow as BrowserWindow, config);
-}));
+ipcMain.handle(
+  'release-exists',
+  withErrorHandler(async (event, config: MadaraConfig) => {
+    return Madara.releaseExists(config);
+  })
+);
 
-ipcMain.handle('release-exists', withErrorHandler(async (event, config: MadaraConfig) => {
-  return Madara.releaseExists(config);
-}));
+ipcMain.handle(
+  'send-tweet',
+  withErrorHandler(async () => {
+    await Madara.getCurrentWindowScreenshot(mainWindow as BrowserWindow);
 
-ipcMain.handle('send-tweet', withErrorHandler(async () => {
-  await Madara.getCurrentWindowScreenshot(mainWindow as BrowserWindow);
+    const file = await Madara.fetchScreenshotFromSystem();
+    // return if screenshot image is not fetched
+    if (!file) return;
 
-  const file = await Madara.fetchScreenshotFromSystem();
+    const imageURL = await FireBaseService.uploadFilesToStorageFirebase(file);
+    const shortenedLink = await FireBaseService.createShortLink(imageURL);
 
-  // return if screenshot image is not fetched
-  if (!file) return;
+    // return if link creation fails
+    if (!shortenedLink) return;
 
-  const imageURL = await FireBaseService.uploadFilesToStorageFirebase(file);
-  const shortenedLink = await FireBaseService.createShortLink(imageURL);
+    // open link in browser
+    shell.openExternal(TWEET_INTENT + shortenedLink);
+  })
+);
 
-  // return if link creation fails
-  if (!shortenedLink) return;
+ipcMain.handle(
+  'child-process-in-memory',
+  withErrorHandler(async (): Promise<boolean> => {
+    return Madara.childProcessInMemory();
+  })
+);
 
-  // open link in browser
-  shell.openExternal(TWEET_INTENT + shortenedLink);
-}));
+ipcMain.handle(
+  'madara-app-download',
+  withErrorHandler(async (event, appId: string) => {
+    await MadaraApp.downloadApp(mainWindow as BrowserWindow, appId);
+  })
+);
 
-ipcMain.handle('child-process-in-memory', withErrorHandler(async (): Promise<boolean> => {
-  return Madara.childProcessInMemory();
-}));
+ipcMain.handle(
+  'madara-installed-apps',
+  withErrorHandler(async () => {
+    return Promise.resolve(MadaraApp.getInstalledApps());
+  })
+);
 
-ipcMain.handle('madara-app-download', withErrorHandler(async (event, appId: string) => {
-  await MadaraApp.downloadApp(mainWindow as BrowserWindow, appId);
-}));
+ipcMain.handle(
+  'madara-app-start',
+  withErrorHandler(async (event, appId: string) => {
+    return await MadaraApp.startApp(mainWindow as BrowserWindow, appId);
+  })
+);
 
-ipcMain.handle('madara-installed-apps', withErrorHandler(async () => {
-  return Promise.resolve(MadaraApp.getInstalledApps());
-}));
-
-ipcMain.handle('madara-app-start', withErrorHandler(async (event, appId: string) => {
-  return await MadaraApp.startApp(mainWindow as BrowserWindow, appId);
-}));
-
-ipcMain.handle('madara-app-stop', withErrorHandler(async (event, appId: string) => {
-  return MadaraApp.stopApp(mainWindow as BrowserWindow, appId);
-}));
+ipcMain.handle(
+  'madara-app-stop',
+  withErrorHandler(async (event, appId: string) => {
+    return MadaraApp.stopApp(mainWindow as BrowserWindow, appId);
+  })
+);
 
 ipcMain.handle(
   'madara-app-update-settings',
@@ -117,14 +151,19 @@ ipcMain.handle(
   })
 );
 
-ipcMain.handle('madara-app-get-settings', withErrorHandler(async (event, appId: string) => {
-  return MadaraApp.getAppSettings(appId);
-}));
+ipcMain.handle(
+  'madara-app-get-settings',
+  withErrorHandler(async (event, appId: string) => {
+    return MadaraApp.getAppSettings(appId);
+  })
+);
 
-ipcMain.handle('madara-fetch-all-running-apps', withErrorHandler(async () => {
-  return MadaraApp.fetchAllRunningApps(mainWindow as BrowserWindow);
-}));
-
+ipcMain.handle(
+  'madara-fetch-all-running-apps',
+  withErrorHandler(async () => {
+    return MadaraApp.fetchAllRunningApps(mainWindow as BrowserWindow);
+  })
+);
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');

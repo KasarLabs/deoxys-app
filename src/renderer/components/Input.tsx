@@ -2,10 +2,10 @@ import React, { CSSProperties } from 'react';
 import { styled } from 'styled-components';
 
 const InputContainer = styled.input`
-  background-color: #151515;
+  background-color: #fff;
   border: 1px solid #2c2e31;
   border-radius: 4px;
-  color: white;
+  color: #000;
   box-sizing: border-box;
   padding: 0.7rem;
 

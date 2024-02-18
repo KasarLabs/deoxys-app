@@ -17,7 +17,7 @@ import { MADARA_RELEASES_URL } from '../../../config/constants';
 const SettingsContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  background-color: #111111;
+  background-color: #000;
   height: 95%;
   width: 30%;
   position: fixed;
@@ -34,6 +34,19 @@ const ContentContainer = styled.div`
   height: 100%;
   overflow-y: scroll;
   margin-bottom: 2rem;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #000;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #338cf5;
+    border-radius: 20px;
+  }
 `;
 
 const OpacityContainer = styled(motion.div)`
@@ -59,7 +72,7 @@ const SettingContainer = styled.div`
 `;
 
 const SettingHeading = styled.div`
-  color: #ff9f40;
+  color: #fff;
   font-weight: 600;
 `;
 

@@ -16,14 +16,14 @@ import { styled } from 'styled-components';
 import Spinner from 'renderer/components/Spinner';
 import DeoxysLogo from '../../../assets/deoxys-logo.jpg';
 import APPS_CONFIG from '../../../config/apps';
-import Apps from './Apps';
+import Docs from './Docs';
 import Logs from './Logs';
 import Telemetry from './Telemetry';
 import TwitterIcon from '../../../assets/twitter.png';
 import AppViewer from './AppViewer';
 
 const NavbarContainer = styled(motion.div)`
-  background-color: black;
+  background-color: #fff;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -32,7 +32,7 @@ const NavbarContainer = styled(motion.div)`
 `;
 
 const Navbar = styled(motion.div)`
-  background-color: #111111;
+  background-color: #fff;
   height: 100%;
   width: 18%;
   display: flex;
@@ -49,7 +49,7 @@ const ContentContainer = styled.div`
 `;
 
 const NavbarHeading = styled.div`
-  color: white;
+  color: black;
   font-size: 1.6rem;
   font-weight: 600;
   display: flex;
@@ -71,9 +71,8 @@ const NavbarItemsContainer = styled.div`
 `;
 
 const NavbarItem = styled.div<{ active: boolean }>`
-  background-color: ${(props) =>
-    props.active ? 'rgba(255, 159, 64, 0.17)' : 'transparent'};
-  color: ${(props) => (props.active ? '#ff9f40' : '#9CA3AF')};
+  background-color: ${(props) => (props.active ? '#338CF5' : 'transparent')};
+  color: ${(props) => (props.active ? '#FFF' : '#000')};
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   padding-left: 0.8rem;
@@ -117,9 +116,9 @@ const NAVBAR_ITEMS: NavbarItemType[] = [
   },
   {
     id: 'fa1d9821-6fd4-46de-99ea-0f0fc967780c',
-    name: '📱 Apps',
-    path: 'apps',
-    component: <Apps />,
+    name: '📱 Docs',
+    path: 'docs',
+    component: <Docs />,
   },
 ];
 
@@ -136,6 +135,8 @@ export default function Navigtion() {
   const handleScreenshot = async () => {
     try {
       setShowSpinner(true);
+      console.log('window.electron.ipcRenderer', window.electron.ipcRenderer);
+      console.log('madara', window.electron.ipcRenderer.madara);
       await window.electron.ipcRenderer.madara.sendTweet();
       setShowSpinner(false);
     } catch (err) {

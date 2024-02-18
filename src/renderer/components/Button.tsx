@@ -1,14 +1,14 @@
 import { styled } from 'styled-components';
 
 const ButtonContainer = styled.button`
-background-color: rgba(255, 159, 64, 0.17);
-border-radius: 4px;
-color: #ff9f40;
-cursor: pointer;
-border: none;
+  background-color: #338cf5;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  border: none;
 
-&:focus {
-  outline: none;
+  &:focus {
+    outline: none;
   }
 `;
 
