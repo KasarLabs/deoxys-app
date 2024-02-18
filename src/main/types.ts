@@ -2,6 +2,7 @@ export type MadaraConfig = {
   name?: string;
   RPCCors: string;
   RPCExternal: string;
+  RPCTsukuyomi: string;
   RPCMethods: string;
   port: string;
   RPCPort: string;

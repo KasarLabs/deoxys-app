@@ -91,6 +91,8 @@ export default function Settings({ onClose }: { onClose: any }) {
     { value: 'false', label: 'false' },
   ];
 
+  const tsukuyomiValues = [{ value: 'rpcTsukuyomi', label: 'Tsukuyomi' }];
+
   const RPCMethods = [
     { value: 'unsafe', label: 'unsafe' },
     { value: 'safe', label: 'safe' },
@@ -177,6 +179,21 @@ export default function Settings({ onClose }: { onClose: any }) {
               }}
               onChange={(value: any) =>
                 configKeyUpdate('RPCExternal', value.value)
+              }
+            />
+          </SettingContainer>
+
+          {/* rpc-tsukuyomi */}
+          <SettingContainer>
+            <SettingHeading>RPC Specs</SettingHeading>
+            <StyledSelect
+              options={tsukuyomiValues}
+              value={{
+                value: nodeConfig.RPCTsukuyomi,
+                label: nodeConfig.RPCTsukuyomi,
+              }}
+              onChange={(value: any) =>
+                configKeyUpdate('RPCTsukuyomi', value.value)
               }
             />
           </SettingContainer>
