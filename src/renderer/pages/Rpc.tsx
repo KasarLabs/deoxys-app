@@ -38,7 +38,7 @@ const Banner = styled.div`
 
 const BANNER_SEEN_KEY = 'banner_seen';
 
-export default function Docs() {
+export default function RPC() {
   const [loading, setLoading] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(false);
   const nodeConig = useAppSelector(selectConfig);
@@ -58,8 +58,8 @@ export default function Docs() {
         <InfiniteBarLoader style={{ width: '100%', borderRadius: 0 }} />
       )}
       <Iframe
-        src="https://deoxys-docs.kasar.io/"
-        title="Docs"
+        src="https://rpc-request-builder.voyager.online"
+        title="RPC"
         style={{ width: '100%', height: '100%', opacity: loading ? 0 : 1 }}
         onLoad={handleLoad}
       />

@@ -8,7 +8,6 @@ export type configTypes =
   | 'RPCCors'
   | 'RPCExternal'
   | 'RPCMethods'
-  | 'RPCTsukuyomi'
   | 'port'
   | 'RPCPort'
   | 'telemetryURL'
@@ -27,7 +26,6 @@ const initialState = {
     RPCCors: 'all',
     RPCExternal: 'false',
     RPCMethods: 'Auto',
-    RPCTsukuyomi: 'rpcTsukuyomi',
     port: '10333',
     RPCPort: '9944',
     telemetryURL: 'wss://telemetry.madara.zone/submit 0',

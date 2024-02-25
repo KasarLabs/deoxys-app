@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Inter;
-  background-color: black;
+  background-color: white;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -14,5 +14,5 @@ body {
 }
 
 .toast-progress-bar {
-  background-color: #ff9f40 !important;
+  background-color: #000 !important;
 }

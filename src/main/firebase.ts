@@ -31,7 +31,7 @@ class FireBaseService {
           domainUriPrefix: process.env.FIREBASE_DYNAMIC_LINK_PREFIX,
           link: TELEMETRY_LINK,
           socialMetaTagInfo: {
-            socialTitle: 'Madara Desktop App',
+            socialTitle: 'Deoxys Desktop App',
             socialDescription: 'One click solution to run node on your desktop',
             socialImageLink: imageLink,
           },

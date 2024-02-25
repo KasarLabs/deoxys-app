@@ -19,7 +19,7 @@ import { styled } from 'styled-components';
 import useErrorBoundaryMain from 'renderer/hooks/useErrorBoundaryMain';
 
 const LandingContainer = styled(motion.div)`
-  background-color: black;
+  background-color: #fff;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -177,7 +177,7 @@ export default function Landing() {
       <HeadingRow>
         <FontAwesomeIcon
           icon={faSliders}
-          color="white"
+          color="black"
           size="xl"
           style={{ cursor: 'pointer' }}
           onClick={() => setIsSettingsOpen(true)}
@@ -216,8 +216,8 @@ export default function Landing() {
             width: '100%',
             textAlign: 'center',
             marginRight: '1rem',
-            backgroundColor: launchMode === 0 ? '#000' : '#338CF5',
-            border: launchMode === 0 ? '1px solid #338CF5' : '#338CF5',
+            backgroundColor: launchMode === 0 ? '#000' : '#FFF',
+            color: launchMode === 0 ? '#FFF' : '#000',
           }}
           onClick={() => {
             setLaunchMode(0);
@@ -233,8 +233,8 @@ export default function Landing() {
             width: '100%',
             textAlign: 'center',
             marginRight: '1rem',
-            backgroundColor: launchMode === 1 ? '#000' : '#338CF5',
-            border: launchMode === 1 ? '1px solid #338CF5' : '#338CF5',
+            backgroundColor: launchMode === 1 ? '#000' : '#FFF',
+            color: launchMode === 1 ? '#FfF' : '#000',
           }}
           onClick={() => {
             setLaunchMode(1);
@@ -249,8 +249,8 @@ export default function Landing() {
             fontSize: '1rem',
             width: '100%',
             textAlign: 'center',
-            backgroundColor: launchMode === 2 ? '#000' : '#338CF5',
-            border: launchMode === 2 ? '1px solid #338CF5' : '#338CF5',
+            backgroundColor: launchMode === 2 ? '#000' : '#FFF',
+            color: launchMode === 2 ? '#FFF' : '#000',
           }}
           onClick={() => {
             setLaunchMode(2);
@@ -273,7 +273,7 @@ export default function Landing() {
         />
         <Button
           verticalPadding="0.7rem"
-          text="Wake up to reality"
+          text="Start"
           style={{
             fontSize: '1rem',
             width: '40%',

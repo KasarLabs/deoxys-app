@@ -72,7 +72,7 @@ const APPS_CONFIG: { apps: (BinaryAppProperties | DockerAppProperties)[] } = {
     },
     {
       id: '4a4ffc33-d60e-49db-9f55-0c43815dcf86',
-      appName: 'Madara Explorer',
+      appName: 'Deoxys Explorer',
       appType: 'binary',
       configParams: {},
       files: [

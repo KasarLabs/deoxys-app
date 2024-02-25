@@ -21,6 +21,8 @@ import Logs from './Logs';
 import Telemetry from './Telemetry';
 import TwitterIcon from '../../../assets/twitter.png';
 import AppViewer from './AppViewer';
+import RPC from './Rpc';
+// import DeoxysLogo from 'renderer/components/DeoxysLogo';
 
 const NavbarContainer = styled(motion.div)`
   background-color: #fff;
@@ -71,7 +73,7 @@ const NavbarItemsContainer = styled.div`
 `;
 
 const NavbarItem = styled.div<{ active: boolean }>`
-  background-color: ${(props) => (props.active ? '#338CF5' : 'transparent')};
+  background-color: ${(props) => (props.active ? '#000' : 'transparent')};
   color: ${(props) => (props.active ? '#FFF' : '#000')};
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
@@ -116,9 +118,15 @@ const NAVBAR_ITEMS: NavbarItemType[] = [
   },
   {
     id: 'fa1d9821-6fd4-46de-99ea-0f0fc967780c',
-    name: '📱 Docs',
+    name: '📃 Docs',
     path: 'docs',
     component: <Docs />,
+  },
+  {
+    id: 'fa1d9821-6fd4-46de-99ea-0f0fc967780d',
+    name: '🌐 RPC',
+    path: 'rpc',
+    component: <RPC />,
   },
 ];
 
@@ -155,6 +163,7 @@ export default function Navigtion() {
           <NavbarHeadingLogo src={DeoxysLogo} />
           Deoxys
         </NavbarHeading>
+        {/* <DeoxysLogo width="500px" height="50px" /> */}
         <NavbarItemsContainer>
           {NAVBAR_ITEMS.map((item) => (
             <NavbarItem

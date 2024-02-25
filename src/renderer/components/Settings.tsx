@@ -17,7 +17,7 @@ import { MADARA_RELEASES_URL } from '../../../config/constants';
 const SettingsContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  background-color: #000;
+  background-color: #fff;
   height: 95%;
   width: 30%;
   position: fixed;
@@ -40,11 +40,11 @@ const ContentContainer = styled.div`
   }
 
   &::-webkit-scrollbar-track {
-    background: #000;
+    background: #fff;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #338cf5;
+    background-color: #000;
     border-radius: 20px;
   }
 `;
@@ -60,7 +60,7 @@ const OpacityContainer = styled(motion.div)`
 
 const MainHeading = styled.div`
   font-size: 1.5rem;
-  color: white;
+  color: #000;
   font-weight: 600;
   margin-bottom: 2rem;
 `;
@@ -72,7 +72,7 @@ const SettingContainer = styled.div`
 `;
 
 const SettingHeading = styled.div`
-  color: #fff;
+  color: #000;
   font-weight: 600;
 `;
 
@@ -90,8 +90,6 @@ export default function Settings({ onClose }: { onClose: any }) {
     { value: 'true', label: 'true' },
     { value: 'false', label: 'false' },
   ];
-
-  const tsukuyomiValues = [{ value: 'rpcTsukuyomi', label: 'Tsukuyomi' }];
 
   const RPCMethods = [
     { value: 'unsafe', label: 'unsafe' },
@@ -132,7 +130,7 @@ export default function Settings({ onClose }: { onClose: any }) {
         exit={{ x: '150%' }}
       >
         <CloseButton onClick={onClose}>
-          <FontAwesomeIcon icon={faClose} color="white" size="xl" />
+          <FontAwesomeIcon icon={faClose} color="black" size="xl" />
         </CloseButton>
         <MainHeading>Settings</MainHeading>
 
@@ -179,21 +177,6 @@ export default function Settings({ onClose }: { onClose: any }) {
               }}
               onChange={(value: any) =>
                 configKeyUpdate('RPCExternal', value.value)
-              }
-            />
-          </SettingContainer>
-
-          {/* rpc-tsukuyomi */}
-          <SettingContainer>
-            <SettingHeading>RPC Specs</SettingHeading>
-            <StyledSelect
-              options={tsukuyomiValues}
-              value={{
-                value: nodeConfig.RPCTsukuyomi,
-                label: nodeConfig.RPCTsukuyomi,
-              }}
-              onChange={(value: any) =>
-                configKeyUpdate('RPCTsukuyomi', value.value)
               }
             />
           </SettingContainer>
