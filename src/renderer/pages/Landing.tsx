@@ -78,7 +78,7 @@ export default function Landing() {
     'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7i99-354d57f4-a70a-4d20-b387-cd0af17e66fe.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2k5OS0zNTRkNTdmNC1hNzBhLTRkMjAtYjM4Ny1jZDBhZjE3ZTY2ZmUuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.NlaeZaj86DXvHDDU-SqIpRLOXF0EczR02ide_8ig5uQ'
   );
   const [animationSource, setAnimationSource] = useState(DeoxysAuthorithy);
-  const [deoxysSize, setDeoxysSize] = useState('400px');
+  const [deoxysSize, setDeoxysSize] = useState('350px');
   const brightnessOneControl = useAnimation();
   const brightnessTwoControl = useAnimation();
   const [bytesDownloaded, setBytesDownlaoded] = useState<number>(0);
@@ -262,7 +262,7 @@ export default function Landing() {
 
       <FormContainer onSubmit={handleFormSubmit} animate={formAnimationControl}>
         <Input
-          placeholder="What name shall you be known by in this realm?"
+          placeholder="Give a name to your node"
           style={{
             fontSize: '1rem',
             width: '40%',

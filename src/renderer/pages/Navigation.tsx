@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from 'renderer/utils/hooks';
 import { styled } from 'styled-components';
 import Spinner from 'renderer/components/Spinner';
 // import DeoxysLogo from '../../../assets/deoxys-logo.jpg';
-import DeoxysLogo from '../../../assets/RedEyes.png';
+import DeoxysLogo from '../../../assets/GradientFullBlack.png';
 import APPS_CONFIG from '../../../config/apps';
 import Docs from './Docs';
 import Logs from './Logs';
@@ -61,8 +61,17 @@ const NavbarHeading = styled.div`
 `;
 
 const NavbarHeadingLogo = styled.img`
-  width: 3rem;
-  margin-right: 0.4rem;
+  width: 250px;
+  height: auto;
+  @media (max-width: 1500px) {
+    width: 200px;
+  }
+  @media (max-width: 1200px) {
+    width: 150px;
+  }
+  @media (max-width: 800px) {
+    width: 100px;
+  }
 `;
 
 const NavbarItemsContainer = styled.div`
@@ -85,6 +94,7 @@ const NavbarItem = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: 1.2em;
 `;
 
 const NavbarImage = styled.img`
@@ -162,7 +172,6 @@ export default function Navigtion() {
       >
         <NavbarHeading>
           <NavbarHeadingLogo src={DeoxysLogo} />
-          Deoxys
         </NavbarHeading>
         {/* <DeoxysLogo width="500px" height="50px" /> */}
         <NavbarItemsContainer>
