@@ -2,13 +2,14 @@ import React, { CSSProperties } from 'react';
 import { styled } from 'styled-components';
 
 const InputContainer = styled.input`
-  background-color: #151515;
-  border: 1px solid #2c2e31;
-  border-radius: 4px;
-  color: white;
-  box-sizing: border-box;
-  padding: 0.7rem;
-
+  background: linear-gradient(0deg, #ffffff, #ffffff);
+  border: 1px solid #eaeaea;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  height: 40px;
+  font-weight: 400;
+  font-size: 16px;
+  color: black;
   &:focus {
     outline: none;
   }

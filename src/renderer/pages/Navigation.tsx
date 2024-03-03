@@ -14,16 +14,19 @@ import { showSnackbar } from 'renderer/store/snackbar';
 import { useAppDispatch, useAppSelector } from 'renderer/utils/hooks';
 import { styled } from 'styled-components';
 import Spinner from 'renderer/components/Spinner';
-import DeoxysLogo from '../../../assets/deoxys-logo.jpg';
+// import DeoxysLogo from '../../../assets/deoxys-logo.jpg';
+import DeoxysLogo from '../../../assets/GradientFullBlack.png';
 import APPS_CONFIG from '../../../config/apps';
-import Apps from './Apps';
+import Docs from './Docs';
 import Logs from './Logs';
 import Telemetry from './Telemetry';
 import TwitterIcon from '../../../assets/twitter.png';
 import AppViewer from './AppViewer';
+import RPC from './Rpc';
+// import DeoxysLogo from 'renderer/components/DeoxysLogo';
 
 const NavbarContainer = styled(motion.div)`
-  background-color: black;
+  background-color: #fff;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -32,7 +35,7 @@ const NavbarContainer = styled(motion.div)`
 `;
 
 const Navbar = styled(motion.div)`
-  background-color: #111111;
+  background-color: #fff;
   height: 100%;
   width: 18%;
   display: flex;
@@ -49,7 +52,7 @@ const ContentContainer = styled.div`
 `;
 
 const NavbarHeading = styled.div`
-  color: white;
+  color: black;
   font-size: 1.6rem;
   font-weight: 600;
   display: flex;
@@ -58,8 +61,17 @@ const NavbarHeading = styled.div`
 `;
 
 const NavbarHeadingLogo = styled.img`
-  width: 3rem;
-  margin-right: 0.4rem;
+  width: 250px;
+  height: auto;
+  @media (max-width: 1500px) {
+    width: 200px;
+  }
+  @media (max-width: 1200px) {
+    width: 150px;
+  }
+  @media (max-width: 800px) {
+    width: 100px;
+  }
 `;
 
 const NavbarItemsContainer = styled.div`
@@ -71,9 +83,8 @@ const NavbarItemsContainer = styled.div`
 `;
 
 const NavbarItem = styled.div<{ active: boolean }>`
-  background-color: ${(props) =>
-    props.active ? 'rgba(255, 159, 64, 0.17)' : 'transparent'};
-  color: ${(props) => (props.active ? '#ff9f40' : '#9CA3AF')};
+  background-color: ${(props) => (props.active ? '#000' : 'transparent')};
+  color: ${(props) => (props.active ? '#FFF' : '#000')};
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   padding-left: 0.8rem;
@@ -83,6 +94,7 @@ const NavbarItem = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: 1.2em;
 `;
 
 const NavbarImage = styled.img`
@@ -117,9 +129,15 @@ const NAVBAR_ITEMS: NavbarItemType[] = [
   },
   {
     id: 'fa1d9821-6fd4-46de-99ea-0f0fc967780c',
-    name: '📱 Apps',
-    path: 'apps',
-    component: <Apps />,
+    name: '📃 Docs',
+    path: 'docs',
+    component: <Docs />,
+  },
+  {
+    id: 'fa1d9821-6fd4-46de-99ea-0f0fc967780d',
+    name: '🌐 RPC',
+    path: 'rpc',
+    component: <RPC />,
   },
 ];
 
@@ -136,6 +154,8 @@ export default function Navigtion() {
   const handleScreenshot = async () => {
     try {
       setShowSpinner(true);
+      console.log('window.electron.ipcRenderer', window.electron.ipcRenderer);
+      console.log('madara', window.electron.ipcRenderer.madara);
       await window.electron.ipcRenderer.madara.sendTweet();
       setShowSpinner(false);
     } catch (err) {
@@ -152,8 +172,8 @@ export default function Navigtion() {
       >
         <NavbarHeading>
           <NavbarHeadingLogo src={DeoxysLogo} />
-          Deoxys
         </NavbarHeading>
+        {/* <DeoxysLogo width="500px" height="50px" /> */}
         <NavbarItemsContainer>
           {NAVBAR_ITEMS.map((item) => (
             <NavbarItem

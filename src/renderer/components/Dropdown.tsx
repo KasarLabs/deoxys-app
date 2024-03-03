@@ -6,8 +6,8 @@ const StyledContainer = styled.div`
     color: white;
   }
   .react-select__option--is-selected {
-    color: #ff9f40;
-    background-color: rgba(255, 159, 64, 0.17);
+    color: #fff;
+    background-color: #000;
   }
 
   .react-select__option--is-active {

@@ -20,7 +20,7 @@ const Bar = styled.div`
 
 const Loader = styled.div`
   /* Color */
-  background-color: #ff9f40;
+  background-color: #fff;
 
   /* Rounded border */
   border-radius: 4px;

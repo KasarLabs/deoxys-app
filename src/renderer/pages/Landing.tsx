@@ -1,11 +1,7 @@
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Progress } from 'electron-dl';
-import {
-  AnimatePresence,
-  motion,
-  useAnimation,
-} from 'framer-motion';
+import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -23,8 +19,7 @@ import { styled } from 'styled-components';
 import useErrorBoundaryMain from 'renderer/hooks/useErrorBoundaryMain';
 
 const LandingContainer = styled(motion.div)`
-  background-color: black;
-  width: 100vw;
+  background-color: #fff;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -73,11 +68,17 @@ export default function Landing() {
   const loaderAnimationControl = useAnimation();
   const [launchMode, setLaunchMode] = useState(0);
   const [showButtons, setShowButtons] = useState(true);
-  const [DeoxysAuthorithy, setDeoxysAuthority] = useState('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7i20-626a1a82-a3ab-4433-944d-8acc4a4449a3.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2kyMC02MjZhMWE4Mi1hM2FiLTQ0MzMtOTQ0ZC04YWNjNGE0NDQ5YTMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.tLOS6q-5axaUtRhnRyD8sH8W2f2Snzc9EzBxMOL9USc');
-  const [DeoxysFull, setDeoxysFull] = useState('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7hk2-6ae83044-3ca0-49be-b577-bdf48c95e359.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2hrMi02YWU4MzA0NC0zY2EwLTQ5YmUtYjU3Ny1iZGY0OGM5NWUzNTkuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.j8qJmUEtMwcx-UaXhJ_QY-6uaESAal5BJAITQZbXKn8');
-  const [DeoxysLight, setDeoxyslight] = useState('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7i99-354d57f4-a70a-4d20-b387-cd0af17e66fe.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2k5OS0zNTRkNTdmNC1hNzBhLTRkMjAtYjM4Ny1jZDBhZjE3ZTY2ZmUuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.NlaeZaj86DXvHDDU-SqIpRLOXF0EczR02ide_8ig5uQ');
+  const [DeoxysAuthorithy, setDeoxysAuthority] = useState(
+    'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7i20-626a1a82-a3ab-4433-944d-8acc4a4449a3.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2kyMC02MjZhMWE4Mi1hM2FiLTQ0MzMtOTQ0ZC04YWNjNGE0NDQ5YTMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.tLOS6q-5axaUtRhnRyD8sH8W2f2Snzc9EzBxMOL9USc'
+  );
+  const [DeoxysFull, setDeoxysFull] = useState(
+    'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7hk2-6ae83044-3ca0-49be-b577-bdf48c95e359.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2hrMi02YWU4MzA0NC0zY2EwLTQ5YmUtYjU3Ny1iZGY0OGM5NWUzNTkuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.j8qJmUEtMwcx-UaXhJ_QY-6uaESAal5BJAITQZbXKn8'
+  );
+  const [DeoxysLight, setDeoxyslight] = useState(
+    'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/05949c12-fc36-4a70-ad23-24873471fe60/dcr7i99-354d57f4-a70a-4d20-b387-cd0af17e66fe.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA1OTQ5YzEyLWZjMzYtNGE3MC1hZDIzLTI0ODczNDcxZmU2MFwvZGNyN2k5OS0zNTRkNTdmNC1hNzBhLTRkMjAtYjM4Ny1jZDBhZjE3ZTY2ZmUuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.NlaeZaj86DXvHDDU-SqIpRLOXF0EczR02ide_8ig5uQ'
+  );
   const [animationSource, setAnimationSource] = useState(DeoxysAuthorithy);
-  const [deoxysSize, setDeoxysSize] = useState('400px');
+  const [deoxysSize, setDeoxysSize] = useState('350px');
   const brightnessOneControl = useAnimation();
   const brightnessTwoControl = useAnimation();
   const [bytesDownloaded, setBytesDownlaoded] = useState<number>(0);
@@ -120,7 +121,6 @@ export default function Landing() {
       opacity: 0,
       transition: { duration: 1 },
     });
-
 
     formAnimationControl.start({
       height: 0,
@@ -177,9 +177,9 @@ export default function Landing() {
       <HeadingRow>
         <FontAwesomeIcon
           icon={faSliders}
-          color="white"
+          color="black"
           size="xl"
-          style={{ opacity: '70%', cursor: 'pointer' }}
+          style={{ cursor: 'pointer' }}
           onClick={() => setIsSettingsOpen(true)}
         />
       </HeadingRow>
@@ -208,19 +208,16 @@ export default function Landing() {
           },
         }}
       >
-
         <Button
           verticalPadding="0.7rem"
-          text="Authority"
+          text="Archive"
           style={{
             fontSize: '1rem',
             width: '100%',
             textAlign: 'center',
             marginRight: '1rem',
-            backgroundColor:
-              launchMode === 0
-                ? 'rgba(255, 159, 64, 0.5)'
-                : 'rgba(255, 159, 64, 0.17)',
+            backgroundColor: launchMode === 0 ? '#000' : '#FFF',
+            color: launchMode === 0 ? '#FFF' : '#000',
           }}
           onClick={() => {
             setLaunchMode(0);
@@ -236,10 +233,8 @@ export default function Landing() {
             width: '100%',
             textAlign: 'center',
             marginRight: '1rem',
-            backgroundColor:
-              launchMode === 1
-                ? 'rgba(255, 159, 64, 0.5)'
-                : 'rgba(255, 159, 64, 0.17)',
+            backgroundColor: launchMode === 1 ? '#000' : '#FFF',
+            color: launchMode === 1 ? '#FfF' : '#000',
           }}
           onClick={() => {
             setLaunchMode(1);
@@ -254,10 +249,8 @@ export default function Landing() {
             fontSize: '1rem',
             width: '100%',
             textAlign: 'center',
-            backgroundColor:
-              launchMode === 2
-                ? 'rgba(255, 159, 64, 0.5)'
-                : 'rgba(255, 159, 64, 0.17)',
+            backgroundColor: launchMode === 2 ? '#000' : '#FFF',
+            color: launchMode === 2 ? '#FFF' : '#000',
           }}
           onClick={() => {
             setLaunchMode(2);
@@ -269,7 +262,7 @@ export default function Landing() {
 
       <FormContainer onSubmit={handleFormSubmit} animate={formAnimationControl}>
         <Input
-          placeholder="What name shall you be known by in this realm?"
+          placeholder="Give a name to your node"
           style={{
             fontSize: '1rem',
             width: '40%',
@@ -280,7 +273,7 @@ export default function Landing() {
         />
         <Button
           verticalPadding="0.7rem"
-          text="Wake up to reality"
+          text="Start"
           style={{
             fontSize: '1rem',
             width: '40%',

@@ -17,7 +17,7 @@ import { MADARA_RELEASES_URL } from '../../../config/constants';
 const SettingsContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  background-color: #111111;
+  background-color: #fff;
   height: 95%;
   width: 30%;
   position: fixed;
@@ -34,6 +34,19 @@ const ContentContainer = styled.div`
   height: 100%;
   overflow-y: scroll;
   margin-bottom: 2rem;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #000;
+    border-radius: 20px;
+  }
 `;
 
 const OpacityContainer = styled(motion.div)`
@@ -47,7 +60,7 @@ const OpacityContainer = styled(motion.div)`
 
 const MainHeading = styled.div`
   font-size: 1.5rem;
-  color: white;
+  color: #000;
   font-weight: 600;
   margin-bottom: 2rem;
 `;
@@ -59,7 +72,7 @@ const SettingContainer = styled.div`
 `;
 
 const SettingHeading = styled.div`
-  color: #ff9f40;
+  color: #000;
   font-weight: 600;
 `;
 
@@ -117,7 +130,7 @@ export default function Settings({ onClose }: { onClose: any }) {
         exit={{ x: '150%' }}
       >
         <CloseButton onClick={onClose}>
-          <FontAwesomeIcon icon={faClose} color="white" size="xl" />
+          <FontAwesomeIcon icon={faClose} color="black" size="xl" />
         </CloseButton>
         <MainHeading>Settings</MainHeading>
 
